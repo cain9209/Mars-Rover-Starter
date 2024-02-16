@@ -24,7 +24,8 @@ describe("Command class", function() {
 
   it("constructor sets a value passes in as the 2nd argument", function() {
     const cmd2 = new Command('cmnd2','val2');
-   expect(cmd2.commandType).toBe('cmnd2','val2')
+   expect(cmd2.commandType).toBe('cmnd2')
+   expect(cmd2.value).toBe('val2')  
   });
 
 });
