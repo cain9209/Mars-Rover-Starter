@@ -11,18 +11,20 @@ describe("Command class", function() {
 
 });
 
-describe("constructor sets commandType", function() {
+describe("Command class", function() {
 
-  it("throws error if command type is NOT passed into constructor as the first parameter", function() {
-    expect( function() { new Command();}).toThrow(new Error('Command type required.'));
+  it("constructor sets commandType", function() {
+   const cmd1 = new Command('cmnd1','val1');
+   expect(cmd1.commandType).toBe('cmnd1','val1')
   });
 
 });
 
 describe("Command class", function() {
 
-  it("throws error if command type is NOT passed into constructor as the first parameter", function() {
-    expect( function() { new Command();}).toThrow(new Error('Command type required.'));
+  it("constructor sets a value passes in as the 2nd argument", function() {
+    const cmd2 = new Command('cmnd2','val2');
+   expect(cmd2.commandType).toBe('cmnd2','val2')
   });
 
 });
