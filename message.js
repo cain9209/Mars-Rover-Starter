@@ -7,6 +7,9 @@ class Message {
          throw Error("Name required")
       }
       this.commands = commands;
+      if(!commands){
+         throw Error("Invalid Input")
+      }
       }
    }
 let commands = [new Command('name2','command2'), new Command('name3','command3')]
