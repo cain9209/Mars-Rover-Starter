@@ -22,11 +22,8 @@ describe("Message class", function() {
 
 describe("Message class", function() {
     it("contains a command array passed into the constructor as the 2nd argument", function(){
-        const testName = name1;
-        const testCommands = ['command1','command2'];
-        const message = new Message(testName,testCommands);
-
-        expect(Message).to.have.property('commands').that.deep.equals(testCommands);
+        const commands2 = new Message('name2','commands2');
+        expect(commands2.Command).toBe('command','command')
     })
 
 });
