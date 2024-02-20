@@ -6,17 +6,17 @@ const Command = require('../command.js');
 
 describe("Message class", function() {
     it("throws error if a name is NOT passed into the constructor as the first parameter", function(){
-
-        expect().tobe()
+expect( function() { new Message();}).toThrow(new Error('Name required.'));
+        
     })
 
 });
 
 describe("Message class", function() {
-    it("constructor sets name", function(){
-
-        expect().tobe()
-    })
+    it("constructor sets name", function() {
+        const name1 = new Command('name1','commands1');
+        expect(name1.name).toBe('name1','commands1')
+       });
 
 });
 
