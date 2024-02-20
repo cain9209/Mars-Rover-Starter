@@ -6,16 +6,11 @@ class Message {
       if (!name) {
          throw Error('Name required')
       }
-      
-      this.commands = commands;
-
-   }
-   
-   
-   
-   // Write code here!
-
-
+       this.commands = commands;
+       if (!commands){
+         throw Error('Please Enter a Command')
+       }
+    }
 }
 
 module.exports = Message;
