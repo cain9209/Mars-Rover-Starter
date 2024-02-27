@@ -9,53 +9,55 @@ class Rover {
  
    receiveMessage(message){
       const results = [];
-
-      for (const command of message.commands){
-         let result = {};
-
-
-         if (command.commandType === "STATUS CHECK"){
-            result = this.updatedStatus();
-         } else if (command.commandType === "MODE CHANGE"){
-            result = this.updatedMode(command.value);
-         } else if (command.commandType === "MOVE"){
-            result = this.updatedMove(command.value);
-         } else {
-            result = {completed: false, error: 'Unkown command type'};
-         }
-         results.push(result);
-      }
-      return {
+      
+      for (const command of message.commands) {
+         results.push(this.executeCommand(command));
+       }
+   
+       return {
          message: message.name,
          results: results
-      };
+       };
+     }
+   
+     executeCommand(command) {
+       switch (command.commandType) {
+         case 'MOVE':
+           return this.executeMoveCommand(command);
+         case 'STATUS_CHECK':
+           return this.executeStatusCheckCommand();
+         case 'MODE_CHANGE':
+           return this.executeModeChangeCommand(command);
+         default:
+           return { completed: false, error: 'Unknown command type' };
+       }
+     }
+   
+     executeMoveCommand(command) {
+       if (this.mode === 'LOW_POWER') {
+         return { completed: false };
+       }
+   
+       this.position = command.value;
+       return { completed: true };
+     }
+   
+     executeStatusCheckCommand() {
+       return {
+         completed: true,
+         roverStatus: {
+           mode: this.mode,
+           generatorWatts: this.generatorWatts,
+           position: this.position
+         }
+       };
+     }
+   
+     executeModeChangeCommand(command) {
+       this.mode = command.value;
+       return { completed: true };
+     }
    }
-    
-   updatedStatus() {
-      return {
-        completed: true,
-        roverStatus: {
-          mode: this.mode,
-          generatorWatts: this.generatorWatts,
-          position: this.position,
-        }
-      };
-    }
- 
-    updatedMode(newMode) {
-      this.mode = newMode;
-      return {completed: true};
-    }
-     updatedMove(newPosition) {
-      if (this.mode === 'LOW_POWER') {
-        return { completed: false, error: 'Cannot move in LOW_POWER mode' };
-      }
-      this.position = newPosition;
-      return { completed: true };
-    }
-  }
- 
-       
  
 module.exports = Rover;
 let rover = new Rover(100);

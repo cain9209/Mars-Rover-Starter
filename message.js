@@ -1,16 +1,15 @@
 const Command = require("./command");
 
 class Message {
-   constructor(name, commands = []) {
+   constructor(name, commands) {
       this.name = name;
       if(!name){
-         throw Error("Name required")
+         throw new Error("Name required")
       }
-      this.commands = commands;
-      if(!commands){
-         throw Error("Invalid Input")
+      this.name = name;
+      this.commands = commands || [];
       }
       }
-   }
+   
 
 module.exports = Message;
