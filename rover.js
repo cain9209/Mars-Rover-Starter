@@ -1,7 +1,62 @@
-class Rover {
-   // Write code here!
-}
+const Message = require("./message");
 
+class Rover {
+   constructor(position, generatorWatts = 110) {
+     this.position = position;
+     this.mode = 'NORMAL';
+     this.generatorWatts = generatorWatts;
+   }
+ 
+   receiveMessage(message){
+      const results = [];
+
+      for (const command of message.commands){
+         let result = {};
+
+
+         if (command.commandType === "STATUS CHECK"){
+            result = this.updatedStatus();
+         } else if (command.commandType === "MODE CHANGE"){
+            result = this.updatedMode(command.value);
+         } else if (command.commandType === "MOVE"){
+            result = this.updatedMove(command.value);
+         } else {
+            result = {completed: false, error: 'Unkown command type'};
+         }
+         results.push(result);
+      }
+      return {
+         message: message.name,
+         results: results
+      };
+   }
+    
+   updatedStatus() {
+      return {
+        completed: true,
+        roverStatus: {
+          mode: this.mode,
+          generatorWatts: this.generatorWatts,
+          position: this.position,
+        }
+      };
+    }
+ 
+    updatedMode(newMode) {
+      this.mode = newMode;
+      return {completed: true};
+    }
+     updatedMove(newPosition) {
+      if (this.mode === 'LOW_POWER') {
+        return { completed: false, error: 'Cannot move in LOW_POWER mode' };
+      }
+      this.position = newPosition;
+      return { completed: true };
+    }
+  }
+ 
+       
+ 
 module.exports = Rover;
 let rover = new Rover(100);
     let commands = [
