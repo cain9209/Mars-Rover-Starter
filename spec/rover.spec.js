@@ -59,6 +59,34 @@ it ("response returned by receiveMessage includes two results if two commands ar
     expect(rover.mode).toBe("LOW_POWER");
   });
 
+  it("responds with a false completed value when attempting to move in LOW_POWER mode", () => {
+    const commands = [new Command("MOVE", "LOW_POWER")];
+    const message = new Message("Message", commands);
+    const rover = new Rover(10); 
+    rover.receiveMessage(
+      new Message("Change mode to low power", [
+        new Command("MODE_CHANGE", "LOW_POWER"),
+      ])
+    );
+
+    const response = rover.receiveMessage(message);
+
+    expect(response.results[0].completed).toBe(false);
+
+    expect(rover.position).toEqual(10);
+  });
+
+  it("responds with the position for the move command", () => {
+    const commands = [new Command("MOVE", 12345)];
+
+    const message = new Message("Message", commands);
+    const rover = new Rover(10); 
+    const response = rover.receiveMessage(message);
+    expect(response.results[0].completed).toBe(true);
+    expect(rover.position).toEqual(12345);
+  });
+
+
 
 });
 
