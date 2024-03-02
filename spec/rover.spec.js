@@ -8,7 +8,7 @@ const Command = require('../command.js');
 // 7 tests here!
 describe("Rover class", function() {
   it("", function() {
-    expect( function() { new Command();}).toThrow(new Error('Command type required.'));
+    expect( function() { new Rover.mode('NORMAL');}).toThrow(new Error('Command type required.'));
   });
 
 });
