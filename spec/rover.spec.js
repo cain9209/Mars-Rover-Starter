@@ -6,51 +6,17 @@ const Command = require('../command.js');
 //       However, do NOT edit the grading tests for any reason and make sure to un-comment out your code to get the autograder to pass.
 
 // 7 tests here!
-describe("Rover class", function() {
-  it("", function() {
-    expect( function() { new Rover.mode('NORMAL');}).toThrow(new Error('Command type required.'));
-  });
-
-});
-
-describe("Rover class", function() {
-  it("", function() {
-    expect( function() { new Command();}).toThrow(new Error('Command type required.'));
-  });
+describe("Rover classs", () => {
   
+it ("constructor sets position and default values for mode and generatorWatts", () => {
+const rover = new Rover(10)
+
+expect(rover.position).toBe(10);
+expect(rover.mode).toBe('NORMAL');
+expect(rover.generatorWatts).toBe(110);
+  });
 });
 
-describe("Rover class", function() {
-  it("throws error if command type is NOT passed into constructor as the first parameter", function() {
-    expect( function() { new Command();}).toThrow(new Error('Command type required.'));
-  });
-  
-});
 
-describe("Rover class", function() {
-  it("throws error if command type is NOT passed into constructor as the first parameter", function() {
-    expect( function() { new Command();}).toThrow(new Error('Command type required.'));
-  });
-  
-});
 
-describe("Rover class", function() {
-  it("throws error if command type is NOT passed into constructor as the first parameter", function() {
-    expect( function() { new Command();}).toThrow(new Error('Command type required.'));
-  });
-  
-});
 
-describe("Rover class", function() {
-  it("throws error if command type is NOT passed into constructor as the first parameter", function() {
-    expect( function() { new Command();}).toThrow(new Error('Command type required.'));
-  });
-  
-});
-
-describe("Rover class", function() {
-  it("throws error if command type is NOT passed into constructor as the first parameter", function() {
-    expect( function() { new Command();}).toThrow(new Error('Command type required.'));
-  });
-  
-});
