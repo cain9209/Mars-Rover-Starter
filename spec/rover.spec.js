@@ -17,10 +17,10 @@ expect(rover.generatorWatts).toBe(110);
   });
 
   it("response returned by receiveMessage contains the name of the message", () => {
-  const message = new Message("Test message name"); 
+  const message = new Message("Message"); 
     const rover = new Rover(98382); 
     const response = rover.receiveMessage(message);
-    expect(response.message).toBe("Test message name");
+    expect(response.message).toBe("Message");
   });
 
 it ("response returned by receiveMessage includes two results if two commands are sent in the message", () => {
@@ -29,7 +29,7 @@ it ("response returned by receiveMessage includes two results if two commands ar
     new Command("STATUS_CHECK"),
   ];
 
-  const message = new Message("Test Message", commands);
+  const message = new Message("Message", commands);
    const rover = new Rover(98382); 
    const response = rover.receiveMessage(message);
    expect(response.results.length).toEqual(commands.length);
@@ -37,16 +37,27 @@ it ("response returned by receiveMessage includes two results if two commands ar
 
   it("responds correctly to the status check command", () => {
     const commands = [new Command("STATUS_CHECK")];
-    const message = new Message("Test message name", commands);
-    const rover = new Rover(98382); 
+    const message = new Message("Message", commands);
+    const rover = new Rover(10); 
     const response = rover.receiveMessage(message);
     
     expect(response.results[0]).toHaveProperty("roverStatus");
     expect(response.results[0].roverStatus.mode).toBe("NORMAL");
     expect(response.results[0].roverStatus.generatorWatts).toEqual(110);
-    expect(response.results[0].roverStatus.position).toEqual(98382);
+    expect(response.results[0].roverStatus.position).toEqual(10);
   });
 
+  it ("responds correctly to the mode change command", () => {
+    const commands = [new Command("MODE_CHANGE", "LOW_POWER")];
+    const message = new Message("Test mode change command", commands);
+
+    const rover = new Rover(10);
+    const response = rover.receiveMessage(message);
+
+    expect(response.results[0].completed).toBe(true);
+
+    expect(rover.mode).toBe("LOW_POWER");
+  });
 
 
 });
