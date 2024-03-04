@@ -18,7 +18,7 @@ expect(rover.generatorWatts).toBe(110);
 
   it("response returned by receiveMessage contains the name of the message", () => {
   const message = new Message("Message"); 
-    const rover = new Rover(98382); 
+    const rover = new Rover(55434); 
     const response = rover.receiveMessage(message);
     expect(response.message).toBe("Message");
   });
@@ -30,7 +30,7 @@ it ("response returned by receiveMessage includes two results if two commands ar
   ];
 
   const message = new Message("Message", commands);
-   const rover = new Rover(98382); 
+   const rover = new Rover(55434); 
    const response = rover.receiveMessage(message);
    expect(response.results.length).toEqual(commands.length);
  });
@@ -77,13 +77,13 @@ it ("response returned by receiveMessage includes two results if two commands ar
   });
 
   it("responds with the position for the move command", () => {
-    const commands = [new Command("MOVE", 12345)];
+    const commands = [new Command("MOVE", 55434)];
 
     const message = new Message("Message", commands);
     const rover = new Rover(10); 
     const response = rover.receiveMessage(message);
     expect(response.results[0].completed).toBe(true);
-    expect(rover.position).toEqual(12345);
+    expect(rover.position).toEqual(55434);
   });
 
 
